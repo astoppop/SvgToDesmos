@@ -12,7 +12,8 @@ equations = []
 
 def appendLine(x0, y0, x1, y1):
     if (x1 - x0) == 0:
-        equations.append(f'x = {x0} \left\{{{min(y0, y1)} < y < {max(y0, y1)}\\right\}}')
+        # equations.append(f'x = {x0} \left\{{{min(y0, y1)} < y < {max(y0, y1)}\\right\}}')
+        equations.append(f'r = {x0}\\csc\\theta \left\{{{min(y0, y1)} < y < {max(y0, y1)}\\right\}}')
         return
     m = (y1 - y0) / (x1 - x0)
     b = y1 - (x1 * m)
@@ -28,7 +29,6 @@ def p(t, a, b, c, d):
 for path_string in path_strings:
     path = parse_path(path_string)
     for e in path:
-        print(e)
         if isinstance(e, Line):
             x0, y0 = e.start.real, e.start.imag
             x1, y1 = e.end.real, e.end.imag
@@ -39,7 +39,6 @@ for path_string in path_strings:
             x1, y1 = e.control1.real, e.control1.imag
             x2, y2 = e.control2.real, e.control2.imag
             x3, y3 = e.end.real, e.end.imag
-            print(e)
 
             pastX, pastY = x0, y0
             for i in range(0, 5):
@@ -47,5 +46,6 @@ for path_string in path_strings:
                 newX, newY = p(t, x0, x1, x2, x3), p(t, y0, y1, y2, y3)
                 appendLine(pastX, pastY, newX, newY)
                 pastX, pastY = newX, newY
+        # else: print(e)
 
 print('\n'.join(equations))
