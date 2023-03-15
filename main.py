@@ -3,7 +3,7 @@ from svg.path.path import Line, CubicBezier
 from xml.dom import minidom
 import clipboard
 
-doc = minidom.parse('./map.svg')
+doc = minidom.parse('./bear.svg')
 pathStrings = [path.getAttribute('d') for path in doc.getElementsByTagName('path')]
 doc.unlink()
 
@@ -29,8 +29,8 @@ def p(t, a, b, c, d):
     return (pow(1 - t, 3) * a) + (3 * pow(1 - t, 2) * t * b) + (3 * (1 - t) * pow(t, 2) * c) + (pow(t, 3) * d)
 
 # print the line draw commands
-for path_string in path_strings:
-    path = parse_path(path_string)
+for pathString in pathStrings:
+    path = parse_path(pathString)
     for e in path:
         if isinstance(e, Line):
             x0, y0 = e.start.real, e.start.imag
