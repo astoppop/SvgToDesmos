@@ -4,7 +4,7 @@ from xml.dom import minidom
 import clipboard
 
 # read the SVG file
-doc = minidom.parse('./bear2.svg')
+doc = minidom.parse('./igloo.svg')
 path_strings = [path.getAttribute('d') for path
                 in doc.getElementsByTagName('path')]
 doc.unlink()
