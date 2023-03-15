@@ -3,10 +3,8 @@ from svg.path.path import Line, CubicBezier
 from xml.dom import minidom
 import clipboard
 
-# read the SVG file
-doc = minidom.parse('./igloo.svg')
-path_strings = [path.getAttribute('d') for path
-                in doc.getElementsByTagName('path')]
+doc = minidom.parse('./map.svg')
+pathStrings = [path.getAttribute('d') for path in doc.getElementsByTagName('path')]
 doc.unlink()
 
 equations = []
