@@ -46,12 +46,16 @@ for path_string in path_strings:
             x3, y3 = e.end.real, e.end.imag
 
             pastX, pastY = x0, y0
-            for i in range(0, 3):
+            for i in range(1, 4):
                 t = i / 3
                 newX, newY = p(t, x0, x1, x2, x3), p(t, y0, y1, y2, y3)
                 appendLine(pastX, pastY, newX, newY)
                 pastX, pastY = newX, newY
         # else: print(e)
 
-print('\n'.join(equations))
-clipboard.copy('\n'.join(equations))
+# print('\n'.join(equations))
+# clipboard.copy('\n'.join(equations))
+
+f = open("text.txt", "w")
+f.writelines('\n'.join(equations))
+f.close()
