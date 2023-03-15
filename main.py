@@ -1,14 +1,16 @@
 from svg.path import parse_path
 from svg.path.path import Line, CubicBezier
 from xml.dom import minidom
+import clipboard
 
 # read the SVG file
-doc = minidom.parse('./boat.svg')
+doc = minidom.parse('./bear2.svg')
 path_strings = [path.getAttribute('d') for path
                 in doc.getElementsByTagName('path')]
 doc.unlink()
 
 equations = []
+flip = True
 
 def appendLine(x0, y0, x1, y1):
     if (x1 - x0) == 0:
@@ -17,6 +19,9 @@ def appendLine(x0, y0, x1, y1):
         return
     m = (y1 - y0) / (x1 - x0)
     b = y1 - (x1 * m)
+    if flip:
+        m *= -1
+        b *= -1
 
     # equations.append(f'y = {m}x + {b} \left\{{{min(x0, x1)} < x < {max(x0, x1)}\\right\}}')
     #  r sin(q) = m r cos q + b 
@@ -41,11 +46,12 @@ for path_string in path_strings:
             x3, y3 = e.end.real, e.end.imag
 
             pastX, pastY = x0, y0
-            for i in range(0, 5):
-                t = i / 5
+            for i in range(0, 3):
+                t = i / 3
                 newX, newY = p(t, x0, x1, x2, x3), p(t, y0, y1, y2, y3)
                 appendLine(pastX, pastY, newX, newY)
                 pastX, pastY = newX, newY
         # else: print(e)
 
 print('\n'.join(equations))
+clipboard.copy('\n'.join(equations))
